@@ -28,13 +28,13 @@
 			"hostname": "nginx",
 			"essential": true,
 			"portMappings":[
-				{
+				{   
 					"hostPort": 80,
 					"containerPort":80
-				}
+				}   
 			],
-			"link": ["client", "server"],
-            "memory":128
+			"links": ["client", "server"],
+            "memory": 128
    	    }
 	]
 }
