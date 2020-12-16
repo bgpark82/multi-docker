@@ -1,26 +1,26 @@
 language: generic
 services:
-  - docker
+ - docker
 
 before_install:
-  - docker build -t bgpark82/react-test -f ./client/Dockerfile.dev .
+ - docker build -t bgpark82/react-test -f ./client/Dockerfile.dev .
 
 script:
-  - docker run -e CI=true bgpark82/react-test npm run test
+ - docker run -e CI=true bgpark82/react-test npm run test
 
 
 after_success:
   # 1. 이미지 빌드
-  - docker build -t bgpark82/multi-client ./client
-  - docker build -t bgpark82/multi-nginx ./nginx
-  - docker build -t bgpark82/multi-server ./server
-  - docker build -t bgpark82/multi-worker ./worker
+ - docker build -t bgpark82/multi-client ./client
+ - docker build -t bgpark82/multi-nginx ./nginx
+ - docker build -t bgpark82/multi-server ./server
+ - docker build -t bgpark82/multi-worker ./worker
 
   # 2. docker cli로 로그인
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 	
   # 3. 빌드된 이미지를 받아서 docker hub로 push
-  - docker push bgpark82/multi-client
-  - docker push bgpark82/multi-nginx
-  - docker push bgpark82/multi-server
-  - docker push bgpark82/multi-worker
+ - docker push bgpark82/multi-client
+ - docker push bgpark82/multi-nginx
+ - docker push bgpark82/multi-server
+ - docker push bgpark82/multi-worker
